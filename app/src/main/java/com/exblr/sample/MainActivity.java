@@ -15,15 +15,20 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        final float[] scales = new float[]{0f, 2.5f, 5f, 7.5f, 10f, 12.5f, 15f};
+
         final DecimalFormat df = new DecimalFormat("0.0");
 
         final TextView tv = (TextView) findViewById(R.id.text_view);
-
         final RangeSeekBar range = (RangeSeekBar) findViewById(R.id.range_seek_bar);
-        range.setScales(new float[]{0f, 2.5f, 5f, 7.5f, 10f, 12.5f, 15f});
+
+        range.setScales(scales);
         range.setOnScaleTextFormat(new RangeSeekBar.OnScaleTextFormat() {
             @Override
             public String format(float value, int index) {
+                if(value==range.getLimitMax()){
+                    return "不限";
+                }
                 return df.format(value);
             }
         });
